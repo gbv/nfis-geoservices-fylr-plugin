@@ -1,0 +1,14 @@
+plugin:
+  name: custom-mask-splitter-nfis
+  version: 1.0
+  displayname:
+    de: NFIS-Geoservices-Plugin
+  info:
+    de: NFIS-Geoservices-Plugin
+  server:
+    api-version:
+      require: 1
+  webfrontend:
+    url: custom-mask-splitter-nfis.js
+    css: custom-mask-splitter-nfis.css
+    l10n: l10n/

@@ -1,1 +1,1 @@
-# nfis-geoservices-fylr-plugin
+# NFIS Geoservices Fylr plugin

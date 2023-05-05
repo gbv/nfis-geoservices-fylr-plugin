@@ -11,9 +11,9 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
             name: 'masterportalUrl'
         ,
             form:
-                label: $$('nfis.mask.splitter.geoserverUrl')
+                label: $$('nfis.mask.splitter.wfsUrl')
             type: CUI.Input
-            name: 'geoserverUrl'
+            name: 'wfsUrl'
         ,
             form:
                 label: $$('nfis.mask.splitter.geoserverUsername')
@@ -219,13 +219,13 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         return masterportalUrl + '?isinitopen=wfst';
 
     __getWfsUrl: (geometryId) ->
-        geoserverUrl = @getDataOptions().geoserverUrl
-        if !geoserverUrl
+        wfsUrl = @getDataOptions().wfsUrl
+        if !wfsUrl
             return ''
-        geoserverUrl += '/' if !geoserverUrl.endsWith('/')
+        wfsUrl += '/' if !wfsUrl.endsWith('/')
         ```
-        const url = geoserverUrl + 'nfis/wfs?service=WFS&' +
-            'version=1.1.0&request=GetFeature&typename=wfst&' +
+        const url = wfsUrl + '?service=WFS&' +
+            'version=1.1.0&request=GetFeature&typename=nfis_wfs&' +
             'outputFormat=application/json&srsname=EPSG:25832&' +
             'cql_filter=municipality=\''+ geometryId + '\'';
         ```

@@ -2,10 +2,9 @@ key,de-DE,en-US
 nfis.mask.splitter.name,NFIS-Geoservices-Plugin,NFIS Geoservices Plugin
 nfis.mask.splitter.title|text,NFIS-Geoservices-Plugin,NFIS Geoservices Plugin
 nfis.mask.splitter.masterportalUrl,Masterportal-URL,Masterportal URL
-nfis.mask.splitter.geoserverUrl,Geoserver-URL,Geoserver URL
-nfis.mask.splitter.geoserverUsername,Geoserver-Username,Geoserver user name
-nfis.mask.splitter.geoserverPassword,Geoserver-Passwort,Geoserver password
-nfis.mask.splitter.geoserverPassword,Geoserver-Passwort,Geoserver password
+nfis.mask.splitter.wfsUrl,Geoserver: WFS-URL,Geoserver: WFS URL
+nfis.mask.splitter.geoserverUsername,Geoserver: Username,Geoserver: User name
+nfis.mask.splitter.geoserverPassword,Geoserver: Passwort,Geoserver: Password
 nfis.mask.splitter.createGeometries,Geometrien anlegen, Create geometries
 nfis.mask.splitter.editGeometries,Geometrien bearbeiten, Edit geometries
 nfis.mask.splitter.viewGeometries,Geometrien im Masterportal ansehen, View geometries in Masterportal

@@ -4,7 +4,7 @@ nfis.mask.splitter.title|text,NFIS-Geoservices-Plugin,NFIS Geoservices Plugin
 nfis.mask.splitter.createGeometries,Geometrien anlegen, Create geometries
 nfis.mask.splitter.editGeometries,Geometrien bearbeiten, Edit geometries
 nfis.mask.splitter.viewGeometries,Geometrien im Masterportal ansehen, View geometries in Masterportal
-server.config.name.system.nfis-geoservices,NFIS-Geoservices-Plugin,NFIS Geoservices Plugin
+server.config.name.system.nfis-geoservices,NFIS-Geoservices,NFIS Geoservices
 server.config.parameter.system.nfis-geoservices.masterportal_url.label,Masterportal-URL,Masterportal URL
 server.config.parameter.system.nfis-geoservices.wfs_url.label,Geoserver: WFS-URL,Geoserver: WFS URL
 server.config.parameter.system.nfis-geoservices.geoserver_username.label,Geoserver: Username,Geoserver: User name

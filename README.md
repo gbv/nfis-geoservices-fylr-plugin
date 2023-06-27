@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. Clone repository into the Fylr directory "files/plugins/easydb"
+1. Clone repository
 2. Install CoffeeScript:
 ```
 npm install --global coffeescript

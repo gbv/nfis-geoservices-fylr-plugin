@@ -69,7 +69,7 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
             } else if (mode === 'editor') {
                 this.__renderEditGeometriesButton(contentElement, objectId);
             }
-        } else if (mode === 'editor') {
+        } else if (mode === 'editor' && objectId) {
             this.__renderCreateGeometriesButton(contentElement);
         }
         ```

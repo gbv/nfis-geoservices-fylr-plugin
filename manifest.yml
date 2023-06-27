@@ -11,4 +11,6 @@ plugin:
   webfrontend:
     url: custom-mask-splitter-nfis.js
     css: custom-mask-splitter-nfis.css
-    l10n: l10n/
+  l10n: l10n/custom-mask-splitter-nfis.csv
+
+base_url_prefix: "webfrontend"

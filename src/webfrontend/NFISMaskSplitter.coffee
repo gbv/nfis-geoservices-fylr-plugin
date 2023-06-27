@@ -28,18 +28,18 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
 
     renderField: (opts) ->
         contentElement = CUI.dom.div('nfis-plugin-content')
-        geometryId = opts.data.geometry_id
+        objectId = opts.top_level_data._uuid
         
-        @__loadContent(contentElement, geometryId, opts.mode)
+        @__loadContent(contentElement, objectId, opts.mode)
 
         return contentElement
 
     isEnabledForNested: ->
         return false
 
-    __loadContent: (contentElement, geometryId, mode) ->
+    __loadContent: (contentElement, objectId, mode) ->
         ```
-        const wfsUrl = this.__getWfsUrl(geometryId);
+        const wfsUrl = this.__getWfsUrl(objectId);
         if (!wfsUrl) return;
 
         const xhr = new XMLHttpRequest();
@@ -48,7 +48,7 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         xhr.onload = () => {
             if (xhr.status == 200) {
                 const data = JSON.parse(xhr.responseText);
-                this.__renderContent(contentElement, geometryId, mode, data.totalFeatures);
+                this.__renderContent(contentElement, objectId, mode, data.totalFeatures);
             } else {
                 console.error('Failed to load data from WFS service');
             }
@@ -60,14 +60,14 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         ```
         return
 
-    __renderContent: (contentElement, geometryId, mode, totalFeatures) ->
+    __renderContent: (contentElement, objectId, mode, totalFeatures) ->
         ```
         if (totalFeatures > 0) {
-            this.__renderMap(contentElement, geometryId);
+            this.__renderMap(contentElement, objectId);
             if (mode === 'detail') {
-                this.__renderViewGeometriesButton(contentElement, geometryId);
+                this.__renderViewGeometriesButton(contentElement, objectId);
             } else if (mode === 'editor') {
-                this.__renderEditGeometriesButton(contentElement, geometryId);
+                this.__renderEditGeometriesButton(contentElement, objectId);
             }
         } else if (mode === 'editor') {
             this.__renderCreateGeometriesButton(contentElement);
@@ -75,11 +75,11 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         ```
         return
 
-    __renderMap: (contentElement, geometryId) ->
+    __renderMap: (contentElement, objectId) ->
         mapElement = CUI.dom.div(undefined, { 'id': 'nfis-plugin-map' })
         CUI.dom.append(contentElement, mapElement)
 
-        @__initializeMap(geometryId)
+        @__initializeMap(objectId)
 
     __renderCreateGeometriesButton: (contentElement) ->
         createGeometriesButton = new CUI.ButtonHref
@@ -91,31 +91,31 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
 
         CUI.dom.append(contentElement, createGeometriesButton)
 
-    __renderEditGeometriesButton: (contentElement, geometryId) ->
+    __renderEditGeometriesButton: (contentElement, objectId) ->
         editGeometriesButton = new CUI.ButtonHref
             id: 'edit-geometries-button'
-            href: @__getEditGeometriesUrl(geometryId)
+            href: @__getEditGeometriesUrl(objectId)
             target: '_blank'
             icon_left: new CUI.Icon(class: 'fa-external-link')
             text: $$('nfis.mask.splitter.editGeometries')
 
         CUI.dom.append(contentElement, editGeometriesButton)
 
-    __renderViewGeometriesButton: (contentElement, geometryId) ->
+    __renderViewGeometriesButton: (contentElement, objectId) ->
         showGeometriesButton = new CUI.ButtonHref
             id: 'view-geometries-button'
-            href: @__getViewGeometriesUrl(geometryId)
+            href: @__getViewGeometriesUrl(objectId)
             target: '_blank'
             icon_left: new CUI.Icon(class: 'fa-external-link')
             text: $$('nfis.mask.splitter.viewGeometries')
 
         CUI.dom.append(contentElement, showGeometriesButton)
 
-    __initializeMap: (geometryId, delay = 0) ->
+    __initializeMap: (objectId, delay = 0) ->
         ```
         setTimeout(() => {
             if (!document.getElementById('nfis-plugin-map')) {
-                return this.__initializeMap(geometryId, 100);
+                return this.__initializeMap(objectId, 100);
             }
 
             const epsg = 'EPSG:25832';
@@ -130,7 +130,7 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
                 })
             );
 
-            const wfsUrl = this.__getWfsUrl(geometryId);
+            const wfsUrl = this.__getWfsUrl(objectId);
             const authenticationString = this.__getAuthenticationString();
 
             const vectorSource = new ol.source.Vector({
@@ -200,17 +200,17 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         ```
         return
     
-    __getViewGeometriesUrl: (geometryId) ->
+    __getViewGeometriesUrl: (objectId) ->
         masterportalUrl = @getDataOptions().masterportalUrl
         if !masterportalUrl
             return ''
-        return masterportalUrl + '?api/highlightFeaturesByAttribute=1279&wfsId=1279&attributeName=municipality&attributeValue=' + geometryId + '&attributeQuery=isequal&zoomToGeometry=' + geometryId;
+        return masterportalUrl + '?api/highlightFeaturesByAttribute=1279&wfsId=1279&attributeName=fylr_id&attributeValue=' + objectId + '&attributeQuery=isequal&zoomToGeometry=' + objectId;
 
-    __getEditGeometriesUrl: (geometryId) ->
+    __getEditGeometriesUrl: (objectId) ->
         masterportalUrl = @getDataOptions().masterportalUrl
         if !masterportalUrl
             return ''
-        return masterportalUrl + '?api/highlightFeaturesByAttribute=1279&wfsId=1279&attributeName=municipality&attributeValue=' + geometryId + '&attributeQuery=isequal&zoomToGeometry=' + geometryId + '&isinitopen=wfst';
+        return masterportalUrl + '?api/highlightFeaturesByAttribute=1279&wfsId=1279&attributeName=fylr_id&attributeValue=' + objectId + '&attributeQuery=isequal&zoomToGeometry=' + objectId + '&isinitopen=wfst';
 
     __getCreateGeometriesUrl: () ->
         masterportalUrl = @getDataOptions().masterportalUrl
@@ -218,7 +218,7 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
             return ''
         return masterportalUrl + '?isinitopen=wfst';
 
-    __getWfsUrl: (geometryId) ->
+    __getWfsUrl: (objectId) ->
         wfsUrl = @getDataOptions().wfsUrl
         if !wfsUrl
             return ''
@@ -227,7 +227,7 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         const url = wfsUrl + '?service=WFS&' +
             'version=1.1.0&request=GetFeature&typename=nfis_wfs&' +
             'outputFormat=application/json&srsname=EPSG:25832&' +
-            'cql_filter=municipality=\''+ geometryId + '\'';
+            'cql_filter=fylr_id=\''+ objectId + '\'';
         ```
         return url
 

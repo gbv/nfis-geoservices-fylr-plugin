@@ -14,3 +14,19 @@ plugin:
   l10n: l10n/custom-mask-splitter-nfis.csv
 
 base_url_prefix: "webfrontend"
+
+base_config:
+  - name: nfis-geoservices
+    parameters:
+      masterportal_url:
+        type: text
+        position: 0
+      wfs_url:
+        type: text
+        position: 1
+      geoserver_username:
+        type: text
+        position: 2
+      geoserver_password:
+        type: text
+        position: 3

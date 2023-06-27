@@ -4,27 +4,7 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         true
 
     getOptions: ->
-        [
-            form:
-                label: $$('nfis.mask.splitter.masterportalUrl')
-            type: CUI.Input
-            name: 'masterportalUrl'
-        ,
-            form:
-                label: $$('nfis.mask.splitter.wfsUrl')
-            type: CUI.Input
-            name: 'wfsUrl'
-        ,
-            form:
-                label: $$('nfis.mask.splitter.geoserverUsername')
-            type: CUI.Input
-            name: 'geoserverUsername'
-        ,
-            form:
-                label: $$('nfis.mask.splitter.geoserverPassword')
-            type: CUI.Input
-            name: 'geoserverPassword'
-        ]
+        []
 
     renderField: (opts) ->
         contentElement = CUI.dom.div('nfis-plugin-content')
@@ -201,25 +181,25 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         return
     
     __getViewGeometriesUrl: (objectId) ->
-        masterportalUrl = @getDataOptions().masterportalUrl
+        masterportalUrl = @__getBaseConfig().masterportal_url
         if !masterportalUrl
             return ''
         return masterportalUrl + '?api/highlightFeaturesByAttribute=1279&wfsId=1279&attributeName=fylr_id&attributeValue=' + objectId + '&attributeQuery=isequal&zoomToGeometry=' + objectId;
 
     __getEditGeometriesUrl: (objectId) ->
-        masterportalUrl = @getDataOptions().masterportalUrl
+        masterportalUrl = @__getBaseConfig().masterportal_url
         if !masterportalUrl
             return ''
         return masterportalUrl + '?api/highlightFeaturesByAttribute=1279&wfsId=1279&attributeName=fylr_id&attributeValue=' + objectId + '&attributeQuery=isequal&zoomToGeometry=' + objectId + '&isinitopen=wfst';
 
     __getCreateGeometriesUrl: () ->
-        masterportalUrl = @getDataOptions().masterportalUrl
+        masterportalUrl = @__getBaseConfig().masterportal_url
         if !masterportalUrl
             return ''
         return masterportalUrl + '?isinitopen=wfst';
 
     __getWfsUrl: (objectId) ->
-        wfsUrl = @getDataOptions().wfsUrl
+        wfsUrl = @__getBaseConfig().wfs_url
         if !wfsUrl
             return ''
         wfsUrl += '/' if !wfsUrl.endsWith('/')
@@ -232,8 +212,11 @@ class ez5.NFISMaskSplitter extends CustomMaskSplitter
         return url
 
     __getAuthenticationString: () ->
-        username = @getDataOptions().geoserverUsername
-        password = @getDataOptions().geoserverPassword
+        username = @__getBaseConfig().geoserver_username
+        password = @__getBaseConfig().geoserver_password
         return 'Basic ' + window.btoa(username + ':' + password)
+
+    __getBaseConfig: () ->
+        ez5.session.getBaseConfig('plugin', 'custom-mask-splitter-nfis')['nfis-geoservices']
 
 MaskSplitter.plugins.registerPlugin(ez5.NFISMaskSplitter)

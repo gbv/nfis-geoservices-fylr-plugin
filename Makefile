@@ -1,18 +1,6 @@
 ZIP_NAME ?= "NFISGeoservicesPlugin.zip"
 PLUGIN_NAME = custom-mask-splitter-nfis
 
-L10N_FILES = l10n/$(PLUGIN_NAME).csv
-
-INSTALL_FILES = \
-	$(WEB)/l10n/cultures.json \
-	$(WEB)/l10n/de-DE.json \
-	$(WEB)/l10n/en-US.json \
-	$(WEB)/l10n/es-ES.json \
-	$(WEB)/l10n/it-IT.json \
-	$(JS) \
-	$(CSS) \
-	manifest.yml
-
 COFFEE_FILES = NFISMaskSplitter.coffee
 MAIN_CSS = src/webfrontend/css/main.css
 OPENLAYERS = src/external/openLayers/ol.js

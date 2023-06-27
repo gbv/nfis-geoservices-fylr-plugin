@@ -2,9 +2,9 @@ plugin:
   name: custom-mask-splitter-nfis
   version: 1.0
   displayname:
-    de: NFIS-Geoservices-Plugin
+    de: NFIS-Geoservices
   info:
-    de: NFIS-Geoservices-Plugin
+    de: NFIS-Geoservices
   server:
     api-version:
       require: 1
